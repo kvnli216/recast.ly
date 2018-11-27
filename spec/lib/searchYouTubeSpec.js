@@ -15,19 +15,23 @@ var getURLSearchParams = function(url) {
 
 var hasSameShape = function(objectOne, objectTwo) {
   if (Object.keys(objectOne).length !== Object.keys(objectTwo).length) {
+    console.log('wrong lengths');
     return false;
   }
 
   for (var key in objectOne) {
     if (!key in objectTwo) {
+      console.log('2');
       return false;
     }
 
     if (typeof objectOne[key] !== typeof objectTwo[key]) {
+      console.log('3');
       return false;
     }
 
     if (Object.prototype.toString.call(objectOne[key]) === '[object Object]') {
+      console.log('4');
       return hasSameShape(objectOne[key], objectTwo[key]);
     }
   }
