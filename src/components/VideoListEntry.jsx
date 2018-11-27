@@ -1,7 +1,3 @@
-var onTitleClick = function(event) {
-
-};
-
 var VideoListEntry = (props) => {
   // console.log(props.video);
   return (<div className="video-list-entry media">
