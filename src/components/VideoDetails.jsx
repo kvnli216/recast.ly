@@ -6,6 +6,7 @@ var VideoDetails = (props) => {
 
 VideoDetails.propTypes = {
   video: React.PropTypes.object.isRequired
+  
 };
 
 export default VideoDetails;
