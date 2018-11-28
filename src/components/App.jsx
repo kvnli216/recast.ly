@@ -1,28 +1,46 @@
 import VideoPlayer from './VideoPlayer.js';
 import VideoList from './VideoList.js';
+import VideoDetails from './VideoDetails.js';
 import YOUTUBE_API_KEY from '../config/youtube.js';
 import exampleVideoData from '../data/exampleVideoData.js';
 import Search from './Search.js';
 import searchYouTube from '../lib/searchYouTube.js';
+// import {searchChannel} from '../lib/searchYouTube.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       video: exampleVideoData[0],
-      videos: exampleVideoData
+      videos: exampleVideoData,
+      statistics: {}
     };
     
     this.changeTitleVideo = this.changeTitleVideo.bind(this);
     this.searchCB = this.searchCB.bind(this);
+    this.channelCB = this.channelCB.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   
-  searchCB(videoList) {
+  searchCB(videoList, statistics) {
     this.setState({
       video: videoList[0],
-      videos: videoList
+      videos: videoList,
+      statistics: statistics
+    });
+  }
+
+  channelCB(channelStats) {
+    console.log(channelStats);
+    this.setState({
+      stastics: {
+        commentCount: channelStats.commentCount,
+        hiddenSubscriberCount: channelStats.hiddenSubscriberCount,
+        subscriberCount: channelStats.subscriberCount,
+        videoCount: channelStats.videoCount,
+        viewCount: channelStats.viewCount
+      }
     });
   }
 
@@ -54,6 +72,9 @@ class App extends React.Component {
         <div className="row">
           <div className="col-md-7">
             <div ref='videoPlayer'>VIDEO PLAYER!<h5>{<VideoPlayer video = {this.state.video}/>}</h5></div>            
+            <div>
+              <VideoDetails statistics={this.state.statistics}/>               
+            </div>
           </div>
           <div className="col-md-5">
             <div>VIDEO LIST!<h5>{<VideoList videos={this.state.videos} changeTitleVideo={this.changeTitleVideo} />}</h5></div>
